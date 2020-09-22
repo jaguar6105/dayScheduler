@@ -2,7 +2,7 @@
 var times = [12, 1, 2, 3, 4,5,6,7,8, 9, 10, 11, 12, 1, 2, 3, 4, 5,6,7,8,9,10,11];
 var d = new Date();
 var actualTime = d.getHours();
-var text = [];
+var text = ["", "", "", "", "", "", "", "", ""];
 
 // initialize the dates
 function initialize() {
@@ -14,6 +14,8 @@ function initialize() {
 
 //create timeblocks
 function createTimes() {
+    var count = 0;
+
     for(var i = 9; i < 18; i++) {
 
         var val = times[i];
@@ -21,6 +23,7 @@ function createTimes() {
         var timeblock = $("<div>");
         var time;
         var button = $("<button>");
+        var input = $("<textarea rows='4' cols='50'>");
 
         if(i < 12) {
             time = val + "AM";
@@ -53,8 +56,16 @@ function createTimes() {
         row.append(column2);
         row.append(column3);
 
+        button.text("Save");
+        button.val(count);
+
+        input.css("background-color", "white");
+        input.text(text[count]);
+
         column1.append("<p>" + time + "</p>");
+        column2.append(input);
         column3.append(button);
+        count++;
       }
 
 }
