@@ -6,10 +6,14 @@ var text = [];
 
 // initialize the dates
 function initialize() {
+    //load persistent data
     loadData();
 
+    //month array
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     $("#currentDay").text(months[d.getMonth()] + " " + d.getDate());
+
+    //create timeblocks
     createTimes();
 }
 
@@ -46,6 +50,7 @@ function createTimes() {
             timeblock.css("background-color", "red");
         }
 
+        //bootstrap rows
         var row = $(" <div class='row'>");
         var column1 = $(" <div class='col-2'>");
         var column2 = $(" <div class='col-8'>");
@@ -53,18 +58,23 @@ function createTimes() {
         
         $(".container").append(timeblock);
         timeblock.append(row);
+
+        //appending bootstrap rows rows
         row.append(column1);
         row.append(column2);
         row.append(column3);
 
+        //button characteristics
         button.text("Save");
         button.val(count);
         button.on("click", saveText);
 
+        //input htl characteristics
         input.css("background-color", "white");
         input.text(text[count]);
         input.addClass("time" + count);
 
+        //adding data to rows
         column1.append("<p>" + time + "</p>");
         column2.append(input);
         column3.append(button);
@@ -90,6 +100,7 @@ function storeData() {
     localStorage.setItem("todo", textString);
   }
 
+//save text in textbox
   function saveText() {
       var value = $(this).val();
       var textBox = $(".time"+value).val();
