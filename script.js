@@ -2,10 +2,11 @@
 var times = [12, 1, 2, 3, 4,5,6,7,8, 9, 10, 11, 12, 1, 2, 3, 4, 5,6,7,8,9,10,11];
 var d = new Date();
 var actualTime = d.getHours();
-var text = ["", "", "", "", "", "", "", "", ""];
+var text = [];
 
 // initialize the dates
 function initialize() {
+    loadData();
 
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     $("#currentDay").text(months[d.getMonth()] + " " + d.getDate());
@@ -58,9 +59,11 @@ function createTimes() {
 
         button.text("Save");
         button.val(count);
+        button.on("click", saveText);
 
         input.css("background-color", "white");
         input.text(text[count]);
+        input.addClass("time" + count);
 
         column1.append("<p>" + time + "</p>");
         column2.append(input);
@@ -70,5 +73,29 @@ function createTimes() {
 
 }
 
+//load text array
+function loadData() {
+    var textJson = localStorage.getItem("todo");
+    if(textJson) {
+        text = JSON.parse(textJson);
+    }
+    else {
+        text = ["", "", "", "", "", "", "", "", ""];
+    }
+}
+
+function storeData() {
+    // Add code here to stringify the todos array and save it to the "todos" key in localStorage
+    var textString = JSON.stringify(text);
+    localStorage.setItem("todo", textString);
+  }
+
+  function saveText() {
+      var value = $(this).val();
+      var textBox = $(".time"+value).val();
+
+      text[value] = textBox;
+      storeData();
+  }
 
 initialize();
